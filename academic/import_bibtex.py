@@ -69,6 +69,7 @@ def parse_bibtex_entry(
     log.info(f"Saving citation to {cite_path}")
     db = BibDatabase()
     db.entries = [entry]
+    print(entry)
     writer = BibTexWriter()
     if not dry_run:
         with open(cite_path, "w", encoding="utf-8") as f:
