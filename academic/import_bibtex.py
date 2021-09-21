@@ -107,6 +107,7 @@ def parse_bibtex_entry(
 
     page.fm["date"] = "-".join([year, month, day])
     page.fm["publishDate"] = timestamp
+    page.fm["publication_date"] = year
 
     authors = None
     if "author" in entry:
