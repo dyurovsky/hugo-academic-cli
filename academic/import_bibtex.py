@@ -152,6 +152,7 @@ def parse_bibtex_entry(
 
     if "url" in entry:
         sane_url = clean_bibtex_str(entry["url"])
+        print(sane_url)
 
         if sane_url[-4:].lower() == ".pdf":
             page.fm["url_pdf"] = sane_url
