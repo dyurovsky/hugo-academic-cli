@@ -147,13 +147,15 @@ def parse_bibtex_entry(
     if "doi" in entry:
         page.fm["doi"] = clean_bibtex_str(entry["doi"])
 
+    log.info(f"entry: {entry}")
+
     links = []
     if all(f in entry for f in ["archiveprefix", "eprint"]) and entry["archiveprefix"].lower() == "arxiv":
         links += [{"name": "arXiv", "url": "https://arxiv.org/abs/" + clean_bibtex_str(entry["eprint"])}]
 
     if "url" in entry:
         sane_url = clean_bibtex_str(entry["url"])
-        log.info(f"sane_url {sane_ur;}")
+        log.info(f"sane_url {sane_url}")
 
         if sane_url[-4:].lower() == ".pdf":
             page.fm["url_pdf"] = sane_url
@@ -162,7 +164,7 @@ def parse_bibtex_entry(
 
     if "preprint" in entry:
         sane_url = clean_bibtex_str(entry["preprint"])
-        log.info(f"sane_url {sane_ur;}")
+        log.info(f"sane_url {sane_url}")
 
         if sane_url[-4:].lower() == ".pdf":
             page.fm["url_preprint"] = sane_url
