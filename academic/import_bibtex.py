@@ -158,6 +158,14 @@ def parse_bibtex_entry(
         else:
             links += [{"name": "URL", "url": sane_url}]
 
+    if "preprint" in entry:
+        sane_url = clean_bibtex_str(entry["preprint"])
+
+        if sane_url[-4:].lower() == ".pdf":
+            page.fm["url_preprint"] = sane_url
+        else:
+            links += [{"name": "Preprint", "url": sane_url}]
+
     if links:
         page.fm["links"] = links
 
