@@ -69,7 +69,6 @@ def parse_bibtex_entry(
     log.info(f"Saving citation to {cite_path}")
     db = BibDatabase()
     db.entries = [entry]
-    print(entry)
     writer = BibTexWriter()
     if not dry_run:
         with open(cite_path, "w", encoding="utf-8") as f:
@@ -147,29 +146,17 @@ def parse_bibtex_entry(
     if "doi" in entry:
         page.fm["doi"] = clean_bibtex_str(entry["doi"])
 
-    log.info(f"entry: {entry}")
-
     links = []
     if all(f in entry for f in ["archiveprefix", "eprint"]) and entry["archiveprefix"].lower() == "arxiv":
         links += [{"name": "arXiv", "url": "https://arxiv.org/abs/" + clean_bibtex_str(entry["eprint"])}]
 
     if "url" in entry:
         sane_url = clean_bibtex_str(entry["url"])
-        log.info(f"sane_url {sane_url}")
 
         if sane_url[-4:].lower() == ".pdf":
             page.fm["url_pdf"] = sane_url
         else:
             links += [{"name": "URL", "url": sane_url}]
-
-    if "preprint" in entry:
-        sane_url = clean_bibtex_str(entry["preprint"])
-        log.info(f"sane_url {sane_url}")
-
-        if sane_url[-4:].lower() == ".pdf":
-            page.fm["url_preprint"] = sane_url
-        else:
-            links += [{"name": "Preprint", "url": sane_url}]
 
     if links:
         page.fm["links"] = links
